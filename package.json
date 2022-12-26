@@ -20,6 +20,10 @@
   },
   "homepage": "https://github.com/abbie930/URL_shortener#readme",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "mongoose": "^6.8.1"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.3"
   }
 }
