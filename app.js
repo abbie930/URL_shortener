@@ -1,4 +1,5 @@
 const express = require('express')
+const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
 
 if (process.env.NODE_ENV !== 'production') {
@@ -9,7 +10,6 @@ const app = express()
 const port = 3000
 
 mongoose.set('strictQuery', true)
-
 mongoose.connect(process.env.MONGODB_URI)
 
 const db = mongoose.connection
@@ -22,8 +22,12 @@ db.once('open', () => {
   console.log('mongodb connected!')
 })
 
+app.engine('handlebars', exphbs.engine({ defaultLayout: 'main' }))
+app.set('view engine', 'handlebars')
+
+
 app.get('/', (req, res) => {
-  res.send('this is a web')
+  res.render('index')
 })
 
 app.listen(port, () => {
