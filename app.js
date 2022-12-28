@@ -2,6 +2,8 @@ const express = require('express')
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
+const URL = require('./models/URL')
+const shortenURL = require('./utils/shortenURL')
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
@@ -33,12 +35,27 @@ app.get('/', (req, res) => {
 })
 
 
-app.post('/', async (req, res) => {
- //若使用者沒有輸入內容，就按下了送出鈕，需要防止表單送出並提示使用者
- if (!req.body.url) return res.redirect('/')
- const originalUrl = req.body.originalUrl 
+app.post('/', (req, res) => {
+  const baseURL = req.headers.origin
+  const originalURL = req.body.originalUrl
+  const shortURL = shortenURL()
 
+  if (!originalURL) return res.redirect('/')
+
+  URL.findOne({ originalURL })
+    .then(data => 
+      data ? data : URL.create({ shortURL, originalURL })
+    )
+    .then(data =>
+      res.render('index', {
+        origin: baseURL,
+        shortURL
+      })
+    )
+    .catch(error => console.log(error))
 })
+
+
 
 app.listen(port, () => {
   console.log(`Express is listening on http://localhost:${port}`)
