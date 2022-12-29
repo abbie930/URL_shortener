@@ -44,12 +44,14 @@ app.post('/', (req, res) => {
 
   URL.findOne({ originalURL })
     .then(data => 
+      // console.log(data)
       data ? data : URL.create({ shortURL, originalURL })
     )
     .then(data =>
+      // console.log(data)
       res.render('index', {
         origin: baseURL,
-        shortURL
+        shortURL: data.shortURL,
       })
     )
     .catch(error => console.log(error))
