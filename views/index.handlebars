@@ -3,9 +3,13 @@
   <div class="alert alert-primary py-1" role="alert">
     Success! Please use the link below:
   </div>
-  <input class="form-control mx-3" style="width: 300px" type="url" placeholder="Input URL here" name="originalUrl" id="originalUrl" value="{{origin}}/{{shortURL}}">
+  <input class="form-control mx-3" style="width: 300px" type="url" name="shortUrl" id="shortUrl" value="{{origin}}/{{shortURL}}">
   <div class="buttons mt-3">
-    <button class="copy btn btn-dark">Copy</button>
+    <button class="copy btn btn-dark" onclick="(function(){ 
+    let copyText = document.getElementById('shortUrl');
+    copyText.select();
+    navigator.clipboard.writeText(copyText.value);
+})();">Copy</button>
     <a href="/"><button type="button" class="copy btn btn-outline-dark">Back</button></a>
   </div>
 </div>
