@@ -1,12 +1,17 @@
+{{#if shortURL}}
+<div class="result d-flex flex-column align-items-center">
+  <div class="alert alert-primary py-1" role="alert">
+    Success! Please use the link below:
+  </div>
+  <input class="form-control mx-3" style="width: 300px" type="url" placeholder="Input URL here" name="originalUrl" id="originalUrl" value="{{origin}}/{{shortURL}}">
+  <div class="buttons mt-3">
+    <button class="copy btn btn-dark">Copy</button>
+    <a href="/"><button type="button" class="copy btn btn-outline-dark">Back</button></a>
+  </div>
+</div>
+{{else}}
 <form action="/" method="POST" class="d-flex flex-column align-items-center">
-  <input class="form-control mt-3" style="width: 450px" type="url" placeholder="Input URL here" name="url" required>
+  <input class="form-control mt-3" style="width: 450px" type="url" placeholder="Input URL here" name="originalUrl" id="originalUrl" required>
   <button class="btn btn-outline-dark mt-3" type="submit">Shorten</button>
 </form>
-
-{{#if ShorterURL}}
-<div class="result d-flex flex-column align-items-center">
-  <h4>Success! Please use this link:</h3>
-  <p class="generatedURL"></p>
-<button class="copy btn btn-dark">Copy</button>
-</div>
 {{/if}}
