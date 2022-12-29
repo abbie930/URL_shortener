@@ -16,12 +16,12 @@
 2. 打開終端機(Terminal)，將專案 clone 至本機位置
 
 ```
-git clone https://github.com/abbie930/url_shortener.git
+git clone https://github.com/abbie930/URL_shortener.git
 ```
 3. 進入存放此專案的資料夾
 
 ```
-cd url_shortener
+cd URL_shortener
 ```
 4. 安裝 npm 套件
 
