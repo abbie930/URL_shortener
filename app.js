@@ -44,29 +44,17 @@ app.post('/', async (req, res) => {
   //if valid, create the shortURL code
   const shortURL = shortenURL()
 
-  try {
-      const data = await URL.findOne({ originalURL })
-
-      if(!data) {
-        await URL.create({ shortURL, originalURL })
-      }
-      res.render('index', {
-        origin: baseURL, 
+  URL.findOne({ originalURL })
+    .then(data => 
+      data ? data : URL.create({ shortURL, originalURL })
+    )
+    .then(data => 
+      res.render("index", {
+        origin: baseURL,
         shortURL: data.shortURL,
       })
-    } catch (error) {
-    console.log(error)
-    }
-    // .then(data => 
-    //   data ? data : URL.create({ shortURL, originalURL })
-    // )
-    // .then(data =>
-    //   res.render('index', {
-    //     origin: baseURL,
-    //     shortURL: data.shortURL,
-    //   })
-    // )
-    // .catch(error => console.log(error))
+    )
+    .catch(error => console.log(error))
 })
 
 
